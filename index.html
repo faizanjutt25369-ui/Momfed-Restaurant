@@ -1,0 +1,2841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MomFed - Ghar Jaisa Khana</title>
+
+<style>
+
+/* ==============================
+   RESET & BASIC
+================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#fff8f2;
+    color:#222;
+    line-height:1.6;
+    transition:0.3s;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* ==============================
+   DARK MODE
+================================= */
+
+body.dark{
+    background:#181818;
+    color:#f5f5f5;
+}
+
+body.dark header,
+body.dark .food-card,
+body.dark .best-card,
+body.dark .combo-box,
+body.dark .delivery-card,
+body.dark .testimonial,
+body.dark .checkout-box,
+body.dark .success-box,
+body.dark .product-box,
+body.dark .offer-content,
+body.dark .cart-panel{
+    background:#252525;
+    color:#f5f5f5;
+}
+
+body.dark input,
+body.dark textarea,
+body.dark select{
+    background:#333;
+    color:#fff;
+    border-color:#555;
+}
+
+/* ==============================
+   HEADER
+================================= */
+
+header{
+    background:#ffffff;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.logo{
+    font-size:26px;
+    font-weight:bold;
+    color:#e66f19;
+    text-decoration:none;
+}
+
+.nav-menu{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.nav-menu a{
+    text-decoration:none;
+    color:inherit;
+    font-weight:600;
+}
+
+.nav-menu a:hover{
+    color:#e66f19;
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.icon-btn{
+    border:none;
+    background:#fff3e8;
+    color:#e66f19;
+    border-radius:10px;
+    padding:9px 12px;
+    font-size:18px;
+}
+
+.cart-btn{
+    position:relative;
+}
+
+.cart-count{
+    position:absolute;
+    top:-7px;
+    right:-7px;
+    background:#e66f19;
+    color:#fff;
+    min-width:20px;
+    height:20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.menu-toggle{
+    display:none;
+}
+
+/* ==============================
+   ANNOUNCEMENT BAR
+================================= */
+
+.announcement{
+    background:#e66f19;
+    color:white;
+    text-align:center;
+    padding:9px 15px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+/* ==============================
+   HERO
+================================= */
+
+.hero{
+    min-height:500px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 20px;
+    background:linear-gradient(
+        rgba(0,0,0,0.48),
+        rgba(0,0,0,0.48)
+    ),
+    url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+.hero-content{
+    max-width:800px;
+}
+
+.hero h1{
+    font-size:54px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:20px;
+    margin-bottom:25px;
+}
+
+.btn{
+    border:none;
+    background:#e66f19;
+    color:white;
+    padding:13px 24px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+    text-decoration:none;
+    display:inline-block;
+}
+
+.btn:hover,
+.add-cart-btn:hover,
+.checkout-btn:hover,
+.confirm-order-btn:hover{
+    opacity:0.9;
+    transform:translateY(-1px);
+}
+
+/* ==============================
+   OPEN / CLOSED STATUS
+================================= */
+
+.status-bar{
+    max-width:1100px;
+    margin:25px auto 0;
+    padding:0 20px;
+}
+
+.status-box{
+    background:#fff;
+    padding:14px 18px;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,0.07);
+    text-align:center;
+    font-weight:bold;
+}
+
+.status-open{
+    color:#148a3d;
+}
+
+/* ==============================
+   SECTIONS
+================================= */
+
+.section{
+    max-width:1200px;
+    margin:auto;
+    padding:70px 20px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:32px;
+    margin-bottom:35px;
+    color:#e66f19;
+}
+
+/* ==============================
+   SEARCH
+================================= */
+
+.search-box{
+    max-width:700px;
+    margin:0 auto 30px;
+    display:flex;
+}
+
+.search-box input{
+    width:100%;
+    padding:15px 18px;
+    border:2px solid #e66f19;
+    border-radius:12px;
+    outline:none;
+    font-size:16px;
+}
+
+/* ==============================
+   CATEGORIES
+================================= */
+
+.categories{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:center;
+    margin-bottom:35px;
+}
+
+.category-btn{
+    border:1px solid #e66f19;
+    background:white;
+    color:#e66f19;
+    padding:10px 18px;
+    border-radius:25px;
+    font-weight:bold;
+}
+
+.category-btn.active,
+.category-btn:hover{
+    background:#e66f19;
+    color:white;
+}
+
+/* ==============================
+   FOOD GRID
+================================= */
+
+.food-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.food-card{
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 4px 18px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.food-card:hover{
+    transform:translateY(-5px);
+}
+
+.food-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.food-info{
+    padding:18px;
+}
+
+.food-info h3{
+    font-size:21px;
+    margin-bottom:7px;
+}
+
+.food-info p{
+    color:#666;
+    margin-bottom:12px;
+}
+
+body.dark .food-info p{
+    color:#ccc;
+}
+
+.food-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.price{
+    color:#e66f19 !important;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.add-cart-btn{
+    border:none;
+    background:#e66f19;
+    color:white;
+    padding:10px 15px;
+    border-radius:9px;
+    font-weight:bold;
+}
+
+/* ==============================
+   BADGES
+================================= */
+
+.badge{
+    display:inline-block;
+    background:#fff0e6;
+    color:#d85f09;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+/* ==============================
+   PRODUCT MODAL
+================================= */
+
+.product-modal,
+.checkout-modal,
+.success-modal{
+    display:none;
+    position:fixed;
+    z-index:2000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.65);
+    overflow-y:auto;
+    padding:20px;
+}
+
+.product-box,
+.checkout-box,
+.success-box{
+    background:white;
+    max-width:650px;
+    margin:40px auto;
+    border-radius:18px;
+    padding:25px;
+    position:relative;
+}
+
+.product-box{
+    display:flex;
+    gap:25px;
+    align-items:flex-start;
+}
+
+.product-box img{
+    width:45%;
+    border-radius:12px;
+    object-fit:cover;
+}
+
+.product-content{
+    flex:1;
+}
+
+.modal-close{
+    position:absolute;
+    top:10px;
+    right:15px;
+    border:none;
+    background:transparent;
+    font-size:30px;
+    color:#e66f19;
+}
+
+/* ==============================
+   CART
+================================= */
+
+.cart-panel{
+    position:fixed;
+    right:-450px;
+    top:0;
+    width:420px;
+    max-width:100%;
+    height:100vh;
+    background:white;
+    z-index:3000;
+    padding:22px;
+    overflow-y:auto;
+    box-shadow:-5px 0 25px rgba(0,0,0,0.2);
+    transition:0.35s;
+}
+
+.cart-panel.open{
+    right:0;
+}
+
+.cart-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.close-cart{
+    font-size:32px;
+    cursor:pointer;
+    color:#e66f19;
+}
+
+.cart-item{
+    border-bottom:1px solid #eee;
+    padding:15px 0;
+}
+
+.cart-item-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.cart-quantity{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:10px;
+}
+
+.cart-quantity button{
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:7px;
+    background:#fff0e6;
+    color:#e66f19;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.remove-btn{
+    border:none;
+    background:#ffe2e2;
+    color:#c62828;
+    padding:6px 10px;
+    border-radius:7px;
+    margin-top:10px;
+}
+
+.cart-summary{
+    margin-top:20px;
+}
+
+.delivery-select,
+.checkout-box select,
+.checkout-box input,
+.checkout-box textarea{
+    width:100%;
+    margin:7px 0 16px;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:9px;
+    font-size:15px;
+    outline:none;
+}
+
+.checkout-box textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.coupon-box{
+    display:flex;
+    gap:8px;
+}
+
+.coupon-box input{
+    flex:1;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+.coupon-box button{
+    border:none;
+    background:#e66f19;
+    color:white;
+    border-radius:8px;
+    padding:10px 15px;
+}
+
+.checkout-btn,
+.confirm-order-btn{
+    width:100%;
+    border:none;
+    background:#e66f19;
+    color:white;
+    padding:14px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+}
+
+/* ==============================
+   PAYMENT DETAILS
+================================= */
+
+#paymentDetails{
+    display:none;
+    background:#fff0e6;
+    border:2px solid #e66f19;
+    border-radius:15px;
+    padding:18px;
+    margin:5px 0 18px;
+    text-align:center;
+}
+
+#paymentTitle{
+    display:block;
+    font-size:21px;
+    font-weight:bold;
+    color:#b84a00;
+    margin-bottom:12px;
+}
+
+#paymentInfo{
+    margin:0;
+    background:#ffe0b2;
+    color:#222;
+    font-size:23px;
+    font-weight:bold;
+    padding:14px;
+    border-radius:10px;
+    border:2px solid #e66f19;
+    letter-spacing:1px;
+    word-break:break-word;
+}
+
+.copy-btn{
+    margin-top:12px;
+    border:none;
+    background:#e66f19;
+    color:white;
+    padding:9px 16px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+/* ==============================
+   TOAST
+================================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%) translateY(100px);
+    background:#222;
+    color:white;
+    padding:13px 20px;
+    border-radius:10px;
+    z-index:5000;
+    opacity:0;
+    transition:0.3s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* ==============================
+   FLOATING WHATSAPP
+================================= */
+
+#floatingWhatsApp{
+    position:fixed;
+    right:20px;
+    bottom:25px;
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:#25d366;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:27px;
+    z-index:1500;
+    box-shadow:0 4px 15px rgba(0,0,0,0.25);
+}
+
+/* ==============================
+   SCROLL TOP
+================================= */
+
+#scrollTop{
+    display:none;
+    position:fixed;
+    left:20px;
+    bottom:25px;
+    width:48px;
+    height:48px;
+    border:none;
+    border-radius:50%;
+    background:#e66f19;
+    color:white;
+    font-size:24px;
+    z-index:1500;
+}
+
+/* ==============================
+   RESPONSIVE
+================================= */
+
+@media(max-width:850px){
+
+    .food-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .nav-menu{
+        display:none;
+        position:absolute;
+        left:0;
+        top:100%;
+        width:100%;
+        background:white;
+        flex-direction:column;
+        padding:20px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    body.dark .nav-menu{
+        background:#252525;
+    }
+
+    .nav-menu.show{
+        display:flex;
+    }
+
+    .menu-toggle{
+        display:block;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .product-box{
+        flex-direction:column;
+    }
+
+    .product-box img{
+        width:100%;
+    }
+
+}
+
+@media(max-width:550px){
+
+    .navbar{
+        padding:12px 14px;
+    }
+
+    .logo{
+        font-size:22px;
+    }
+
+    .food-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        min-height:450px;
+        padding:60px 15px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .hero p{
+        font-size:17px;
+    }
+
+    .section{
+        padding:50px 15px;
+    }
+
+    .section-title{
+        font-size:27px;
+    }
+
+    .cart-panel{
+        width:100%;
+        right:-100%;
+    }
+
+    .coupon-box{
+        flex-direction:column;
+    }
+
+    .product-box,
+    .checkout-box,
+    .success-box{
+        margin:15px auto;
+        padding:20px 15px;
+    }
+
+    #paymentInfo{
+        font-size:20px;
+    }
+
+}
+/* FIX WHITE SECTIONS IN DARK MODE */
+
+body.dark .combo-box,
+body.dark .delivery-card,
+body.dark .testimonial{
+    background:#252525 !important;
+    color:#f5f5f5 !important;
+}
+
+body.dark .combo-box p,
+body.dark .delivery-card p,
+body.dark .testimonial p,
+body.dark .combo-box h2,
+body.dark .combo-box h3,
+body.dark .delivery-card h2,
+body.dark .delivery-card h3,
+body.dark .testimonial h3,
+body.dark .testimonial strong{
+    color:#f5f5f5 !important;
+}
+
+body.dark .combo-box .price{
+    color:#ff9a52 !important;
+}
+
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+<!-- ANNOUNCEMENT -->
+
+<div class="announcement">
+    🚚 Free Delivery on Orders Above Rs. 1000 | 🍛 Fresh Homemade Food
+</div>
+
+<!-- HEADER -->
+
+<header>
+
+    <nav class="navbar">
+
+        <a href="#" class="logo">🍛 MomFed</a>
+
+        <div class="nav-menu" id="navMenu">
+            <a href="#home">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#delivery">Delivery</a>
+            <a href="#reviews">Reviews</a>
+        </div>
+
+        <div class="nav-actions">
+
+            <button class="icon-btn"
+                onclick="toggleDark()">
+                🌙
+            </button>
+
+            <button class="icon-btn cart-btn"
+                onclick="toggleCart()">
+                🛒
+                <span class="cart-count"
+                    id="cartCount">0</span>
+            </button>
+
+            <button class="icon-btn menu-toggle"
+                onclick="toggleMenu()">
+                ☰
+            </button>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>Ghar Jaisa Khana ❤️</h1>
+
+        <p>
+            Fresh, tasty aur homemade food
+            seedha aapke darwaze tak!
+        </p>
+
+        <a href="#menu" class="btn">
+            🍛 Order Now
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- OPEN STATUS -->
+
+<div class="status-bar">
+
+    <div class="status-box status-open">
+        🟢 We are Open — Order Now!
+    </div>
+
+</div>
+
+
+<!-- MENU -->
+
+<section class="section" id="menu">
+
+    <h2 class="section-title">🍽️ Our Menu</h2>
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search your favorite food..."
+            oninput="filterProducts()">
+
+    </div>
+
+
+    <!-- CATEGORIES -->
+
+    <div class="categories">
+
+        <button class="category-btn active"
+            onclick="setCategory('all',this)">
+            All
+        </button>
+
+        <button class="category-btn"
+            onclick="setCategory('biryani',this)">
+            🍛 Biryani
+        </button>
+
+        <button class="category-btn"
+            onclick="setCategory('karahi',this)">
+            🍗 Karahi
+        </button>
+
+        <button class="category-btn"
+            onclick="setCategory('rice',this)">
+            🍚 Rice
+        </button>
+
+        <button class="category-btn"
+            onclick="setCategory('other',this)">
+            🍽️ Other
+        </button>
+
+    </div>
+    <!-- PRODUCTS -->
+    <div class="food-grid" id="firebaseFoodGrid">
+        <div class="food-card">
+            <div class="food-info">
+                <h3>Loading menu...</h3>
+                <p>Please wait while we load the latest menu.</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- ==============================
+     DELIVERY INFO
+================================= -->
+
+<section class="section" id="delivery">
+
+    <h2 class="section-title">🚚 Delivery Information</h2>
+
+    <div class="delivery-card"
+        style="max-width:750px;margin:auto;background:#fff;padding:28px;border-radius:18px;box-shadow:0 4px 18px rgba(0,0,0,0.08);">
+
+        <h3>🛵 Fast & Fresh Delivery</h3>
+
+        <p style="margin-top:12px;">
+            Delivery charges area ke according calculate honge.
+            Rs. 1000 ya us se zyada order par free delivery available hai.
+        </p>
+
+        <p style="margin-top:10px;">
+            ⏱️ Estimated Delivery Time: <strong>30–45 Minutes</strong>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ==============================
+     FOOD GALLERY
+================================= -->
+
+<section class="section" id="gallery">
+
+    <h2 class="section-title">📸 Food Gallery</h2>
+
+    <div class="food-grid">
+
+        <div class="food-card">
+            <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80" alt="Biryani">
+        </div>
+
+        <div class="food-card">
+            <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80" alt="Karahi">
+        </div>
+
+        <div class="food-card">
+            <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" alt="Pulao">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==============================
+     CUSTOMER REVIEWS
+================================= -->
+
+<section class="section" id="reviews">
+
+    <h2 class="section-title">⭐ Customer Reviews</h2>
+
+    <div class="food-grid">
+
+        <div class="testimonial"
+            style="background:#fff;padding:25px;border-radius:16px;box-shadow:0 4px 18px rgba(0,0,0,0.08);">
+
+            <h3>⭐⭐⭐⭐⭐</h3>
+
+            <p style="margin-top:10px;">
+                “Bohat tasty aur bilkul ghar jaisa khana. Delivery bhi fast thi!”
+            </p>
+
+            <strong style="display:block;margin-top:15px;">
+                — Happy Customer
+            </strong>
+
+        </div>
+
+
+        <div class="testimonial"
+            style="background:#fff;padding:25px;border-radius:16px;box-shadow:0 4px 18px rgba(0,0,0,0.08);">
+
+            <h3>⭐⭐⭐⭐⭐</h3>
+
+            <p style="margin-top:10px;">
+                “Biryani ka taste bohat acha tha. Definitely dobara order karunga.”
+            </p>
+
+            <strong style="display:block;margin-top:15px;">
+                — MomFed Customer
+            </strong>
+
+        </div>
+
+
+        <div class="testimonial"
+            style="background:#fff;padding:25px;border-radius:16px;box-shadow:0 4px 18px rgba(0,0,0,0.08);">
+
+            <h3>⭐⭐⭐⭐⭐</h3>
+
+            <p style="margin-top:10px;">
+                “Fresh food, good packaging aur reasonable prices.”
+            </p>
+
+            <strong style="display:block;margin-top:15px;">
+                — Verified Customer
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==============================
+     PRODUCT DETAILS MODAL
+================================= -->
+
+<div class="product-modal" id="productModal">
+
+    <div class="product-box">
+
+        <button class="modal-close"
+            onclick="closeProduct()">
+            ×
+        </button>
+
+        <img id="modalProductImage"
+            src=""
+            alt="Product">
+
+        <div class="product-content">
+
+            <span class="badge">🍛 MomFed Special</span>
+
+            <h2 id="modalProductName"></h2>
+
+            <p id="modalProductDescription"
+                style="margin:15px 0;"></p>
+
+            <h3 class="price"
+                id="modalProductPrice"></h3>
+
+            <br>
+
+            <button class="add-cart-btn"
+                onclick="addCurrentProduct()">
+                🛒 Add to Cart
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==============================
+     CART PANEL
+================================= -->
+
+<div class="cart-panel" id="cartPanel">
+
+    <div class="cart-header">
+
+        <h2>🛒 Your Cart</h2>
+
+        <span class="close-cart"
+            onclick="toggleCart()">
+            ×
+        </span>
+
+    </div>
+
+    <div id="cartItems"
+        style="margin-top:20px;"></div>
+
+
+    <div class="cart-summary">
+
+        <hr>
+
+        <p style="margin-top:15px;">
+            Subtotal:
+            <strong>
+                Rs. <span id="subtotal">0</span>
+            </strong>
+        </p>
+
+
+        <label style="display:block;margin-top:15px;font-weight:bold;">
+            🚚 Select Delivery Area
+        </label>
+
+        <select class="delivery-select"
+            id="deliveryArea"
+            onchange="updateCart()">
+
+            <option value="0">Select Area</option>
+            <option value="100">Nearby Area — Rs. 100</option>
+            <option value="150">Normal Area — Rs. 150</option>
+            <option value="200">Far Area — Rs. 200</option>
+
+        </select>
+
+
+        <p>
+            Delivery:
+            <strong>
+                Rs. <span id="deliveryCharge">0</span>
+            </strong>
+        </p>
+
+
+        <div style="margin-top:18px;">
+
+            <label style="font-weight:bold;">
+                🎟️ Coupon Code
+            </label>
+
+            <div class="coupon-box">
+
+                <input type="text"
+                    id="couponCode"
+                    placeholder="Enter coupon">
+
+                <button onclick="applyCoupon()">
+                    Apply
+                </button>
+
+            </div>
+
+            <small id="couponMessage"></small>
+
+        </div>
+
+
+        <p style="margin-top:15px;">
+            Discount:
+            <strong>
+                Rs. <span id="discountAmount">0</span>
+            </strong>
+        </p>
+
+        <hr style="margin:15px 0;">
+
+        <h2>
+            Total:
+            <span class="price">
+                Rs. <span id="cartTotal">0</span>
+            </span>
+        </h2>
+
+        <br>
+
+        <button class="checkout-btn"
+            onclick="openCheckout()">
+            Proceed to Checkout →
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ==============================
+     CHECKOUT MODAL
+================================= -->
+
+<div class="checkout-modal" id="checkoutModal">
+
+    <div class="checkout-box">
+
+        <button class="modal-close"
+            onclick="closeCheckout()">
+            ×
+        </button>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+            <h2 style="color:#e66f19;margin:0;">
+                📝 Complete Your Order
+            </h2>
+            <button type="button" onclick="sendLocationOnWhatsApp()" style="border:0;border-radius:10px;padding:10px 14px;background:#198754;color:#fff;font-weight:700;cursor:pointer;">📍 Send Location</button>
+        </div>
+
+        <p style="font-size:12px;color:#666;margin:8px 0 14px;">Aap is button se WhatsApp par apni delivery location bhej sakte hain. WhatsApp mein Location → Send your current location select karein.</p>
+
+        <br>
+
+        <label>Full Name</label>
+
+        <input type="text"
+            id="customerName"
+            placeholder="Enter your name">
+
+
+        <label>Phone Number</label>
+
+        <input type="tel"
+            id="customerPhone"
+            placeholder="03XXXXXXXXX">
+
+
+        <label>Delivery Address</label>
+
+        <textarea
+            id="customerAddress"
+            placeholder="Enter complete address"></textarea>
+
+          <button type="button" id="setLocationBtn" onclick="sendLocationOnWhatsApp()" style="width:100%;margin:10px 0;padding:12px;border:0;border-radius:10px;background:#e66f19;color:#fff;font-weight:700;cursor:pointer;">📍 Share Your Location on WhatsApp</button>
+          <div id="locationStatus" style="font-size:13px;color:#666;margin:6px 0 12px;"></div>
+
+
+        <label>Delivery Date</label>
+
+        <input type="date"
+            id="deliveryDate">
+
+
+        <label>📝 Special Instructions / Customer Notes</label>
+
+        <textarea
+            id="customerNotes"
+            placeholder="Example: Less spicy, no onions..."></textarea>
+
+
+        <label>Payment Method</label>
+
+        <select id="paymentMethod"
+            onchange="showPaymentDetails()">
+
+            <option value="">Select Payment Method</option>
+
+            <option value="Cash on Delivery">
+                💵 Cash on Delivery
+            </option>
+
+            <option value="JazzCash">
+                📱 JazzCash
+            </option>
+
+            <option value="Easypaisa">
+                📱 Easypaisa
+            </option>
+
+            <option value="UBL Bank Transfer">
+                🏦 UBL Bank Transfer
+            </option>
+
+        </select>
+
+
+        <!-- PAYMENT DETAILS -->
+
+        <div id="paymentDetails">
+
+            <span id="paymentTitle"></span>
+
+            <p id="paymentInfo"></p>
+
+            <button type="button"
+                class="copy-btn"
+                onclick="copyPaymentInfo()">
+                📋 Copy Number
+            </button>
+
+        </div>
+
+
+        <button class="confirm-order-btn"
+            onclick="confirmOrder()">
+
+            ✅ Confirm Order
+
+        </button>
+
+    </div>
+
+</div>
+<!-- ==============================
+     ORDER RECEIPT
+================================= -->
+
+<div id="receiptModal" class="success-modal">
+
+    <div class="success-box" id="receiptContent">
+
+        <div style="text-align:center;">
+
+            <h1 style="color:#e66f19;">🍛 MomFed</h1>
+
+            <p>Ghar Jaisa Khana, Aapke Darwaze Tak ❤️</p>
+
+            <hr style="margin:20px 0;">
+
+            <h2>🧾 Order Receipt</h2>
+
+        </div>
+
+        <p><strong>Order Number:</strong> <span id="receiptOrderNumber"></span></p>
+        <p><strong>Customer:</strong> <span id="receiptCustomerName"></span></p>
+        <p><strong>Phone:</strong> <span id="receiptCustomerPhone"></span></p>
+        <p><strong>Address:</strong> <span id="receiptCustomerAddress"></span></p>
+        <p><strong>Delivery Date:</strong> <span id="receiptDeliveryDate"></span></p>
+        <p><strong>Delivery Time:</strong> <span id="receiptDeliveryTime"></span></p>
+        <p><strong>Payment:</strong> <span id="receiptPayment"></span></p>
+
+        <div id="receiptNotesBox" style="display:none;">
+            <p>
+                <strong>Special Instructions:</strong>
+                <span id="receiptNotes"></span>
+            </p>
+        </div>
+
+        <hr style="margin:20px 0;">
+
+        <h3>🛒 Order Items</h3>
+
+        <div id="receiptItems" style="margin-top:15px;"></div>
+
+        <hr style="margin:20px 0;">
+
+        <p>
+            Subtotal:
+            <strong>Rs. <span id="receiptSubtotal"></span></strong>
+        </p>
+
+        <p>
+            Delivery:
+            <strong>Rs. <span id="receiptDelivery"></span></strong>
+        </p>
+
+        <p>
+            Discount:
+            <strong>Rs. <span id="receiptDiscount"></span></strong>
+        </p>
+
+        <hr style="margin:20px 0;">
+
+        <h2>
+            Total:
+            <span style="color:#e66f19;">
+                Rs. <span id="receiptTotal"></span>
+            </span>
+        </h2>
+
+        <hr style="margin:20px 0;">
+
+        <p style="text-align:center;">
+            Thank you for ordering from MomFed ❤️<br>
+            We hope to serve you again!
+        </p>
+
+        <br>
+
+        <button class="confirm-order-btn"
+            onclick="printReceipt()">
+            🖨️ Print / Save Bill as PDF
+        </button>
+
+        <br><br>
+
+        <button class="btn"
+            style="width:100%;text-align:center;"
+            onclick="closeReceipt()">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ==============================
+     OFFER POPUP
+================================= -->
+
+<div id="offerPopup"
+    class="success-modal">
+
+    <div class="success-box"
+        style="max-width:450px;text-align:center;">
+
+        <button class="modal-close"
+            onclick="closeOffer()">
+            ×
+        </button>
+
+        <h1>🎉 Special Offer!</h1>
+
+        <p style="margin:15px 0;">
+            Use coupon code:
+        </p>
+
+        <h2 style="color:#e66f19;">
+            MOMFED10
+        </h2>
+
+        <p style="margin:15px 0;">
+            Get 10% discount on your order!
+        </p>
+
+        <button class="btn"
+            onclick="closeOffer()">
+            Order Now
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ==============================
+     FOOTER
+================================= -->
+
+<footer style="
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:35px 20px;
+">
+
+    <h2 style="color:#e66f19;">
+        🍛 MomFed
+    </h2>
+
+    <p style="margin:10px 0;">
+        Fresh Homemade Food ❤️
+    </p>
+
+    <p>
+        © <span id="currentYear"></span>
+        MomFed. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- FLOATING WHATSAPP -->
+
+<a id="floatingWhatsApp"
+    href="https://wa.me/923270450914"
+    target="_blank"
+    aria-label="Chat on WhatsApp">
+    💬
+</a>
+
+<!-- QUICK LOCATION BUTTON (TOP/FLOATING) -->
+<button type="button" onclick="sendLocationOnWhatsApp()" aria-label="Send delivery location on WhatsApp" style="position:fixed;right:18px;bottom:132px;z-index:3000;border:0;border-radius:999px;padding:10px 14px;background:#198754;color:#fff;font-weight:700;box-shadow:0 4px 15px rgba(0,0,0,.2);cursor:pointer;">📍 Send Location</button>
+
+<button type="button" onclick="openOrderHistory()" style="position:fixed;right:18px;bottom:78px;z-index:3000;border:0;border-radius:999px;padding:10px 14px;background:#e66f19;color:#fff;font-weight:700;box-shadow:0 4px 15px rgba(0,0,0,.2);">🧾 Order History</button>
+
+<!-- SCROLL TOP -->
+
+<button id="scrollTop"
+    onclick="window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    })">
+    ↑
+</button>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+
+<!-- CUSTOMER ORDER HISTORY -->
+<div id="orderHistoryModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9998;align-items:center;justify-content:center;padding:15px;">
+  <div style="background:#fff;width:min(650px,100%);border-radius:18px;padding:18px;max-height:90vh;overflow:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;"><h2 style="margin:0;color:#e66f19;">🧾 Order History</h2><button onclick="closeOrderHistory()" style="border:0;background:#eee;border-radius:50%;width:36px;height:36px;font-size:22px;">×</button></div>
+    <div id="orderHistoryList" style="margin-top:14px;"></div>
+  </div>
+</div>
+
+<!-- RIDER DELIVERY MODE -->
+<div id="riderDeliveryMode" style="display:none;position:fixed;inset:0;background:#fff;z-index:11000;padding:20px;overflow:auto;"></div>
+
+<!-- ==============================
+     JAVASCRIPT
+================================= -->
+
+<script>
+
+let cart = [];
+let currentProduct = null;
+let discount = 0;
+let currentCategory = "all";
+
+/* ==============================
+   FIREBASE - LIVE MENU
+================================= */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBwpY0jCpDaFa9K7fX7dITnQ0JCRPwMl6E",
+    authDomain: "momfed-6e887.firebaseapp.com",
+    projectId: "momfed-6e887",
+    storageBucket: "momfed-6e887.firebasestorage.app",
+    messagingSenderId: "197402169238",
+    appId: "1:197402169238:web:95c3d44b53feab2009d7b7"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function escapeFirebaseHtml(value) {
+    const div = document.createElement("div");
+    div.textContent = String(value ?? "");
+    return div.innerHTML;
+}
+
+function slugCategory(value) {
+    return String(value || "other")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "-");
+}
+
+function renderFirebaseProducts(products) {
+    const grid = document.getElementById("firebaseFoodGrid");
+    if (!grid) return;
+
+    if (!products.length) {
+        grid.innerHTML = `
+            <div class="food-card">
+                <div class="food-info">
+                    <h3>No products available</h3>
+                    <p>Please check back soon.</p>
+                </div>
+            </div>`;
+        return;
+    }
+
+    grid.innerHTML = products
+        .filter(p => p && p.available !== false)
+        .map(product => {
+            const name = escapeFirebaseHtml(product.name || "Food");
+            const description = escapeFirebaseHtml(product.description || "");
+            const image = escapeFirebaseHtml(product.image || "");
+            const category = escapeFirebaseHtml(slugCategory(product.category));
+            const price = Number(product.price || 0);
+            const badge = product.isNew ? "🆕 New" : (product.featured ? "⭐ Featured" : "🍛 Homemade");
+
+            return `
+                <div class="food-card" data-category="${category}">
+                    <img src="${image}" alt="${name}">
+                    <div class="food-info">
+                        <span class="badge">${badge}</span>
+                        <h3>${name}</h3>
+                        <p>${description}</p>
+                        <div class="food-bottom">
+                            <span class="price">Rs. ${price.toLocaleString()}</span>
+                            <button class="add-cart-btn firebase-view-btn"
+                                type="button"
+                                data-name="${name}"
+                                data-price="${price}"
+                                data-description="${description}"
+                                data-image="${image}">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+        }).join("");
+
+    grid.querySelectorAll(".firebase-view-btn").forEach(button => {
+        button.addEventListener("click", function() {
+            showProduct(
+                this.dataset.name,
+                Number(this.dataset.price),
+                this.dataset.description,
+                this.dataset.image
+            );
+        });
+    });
+}
+
+async function loadFirebaseProducts() {
+    try {
+        const snapshot = await db.collection("appData").doc("products").get();
+        const data = snapshot.exists ? snapshot.data() : null;
+        const products = data && Array.isArray(data.items) ? data.items : [];
+        renderFirebaseProducts(products);
+    } catch (error) {
+        console.error("Firebase menu load failed:", error);
+        document.getElementById("firebaseFoodGrid").innerHTML = `
+            <div class="food-card">
+                <div class="food-info">
+                    <h3>Menu temporarily unavailable</h3>
+                    <p>Please refresh the page in a moment.</p>
+                </div>
+            </div>`;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadFirebaseProducts);
+
+
+
+
+/* ==============================
+   MENU
+================================= */
+
+function toggleMenu(){
+    document
+        .getElementById("navMenu")
+        .classList.toggle("show");
+}
+
+
+/* ==============================
+   DARK MODE
+================================= */
+
+function toggleDark(){
+    document.body.classList.toggle("dark");
+}
+
+
+/* ==============================
+   PRODUCT MODAL
+================================= */
+
+function showProduct(name, price, description, image){
+
+    currentProduct = {
+        name:name,
+        price:Number(price)
+    };
+
+    document.getElementById("modalProductName").textContent = name;
+
+    document.getElementById("modalProductPrice").textContent =
+        "Rs. " + price;
+
+    document.getElementById("modalProductDescription").textContent =
+        description;
+
+    document.getElementById("modalProductImage").src = image;
+
+    document.getElementById("productModal").style.display = "block";
+}
+
+
+function closeProduct(){
+    document.getElementById("productModal").style.display = "none";
+}
+
+
+function addCurrentProduct(){
+
+    if(currentProduct){
+
+        addToCart(
+            currentProduct.name,
+            currentProduct.price
+        );
+
+        closeProduct();
+
+        showToast("🛒 Added to cart!");
+    }
+
+}
+
+
+/* ==============================
+   CART
+================================= */
+
+function toggleCart(){
+    document
+        .getElementById("cartPanel")
+        .classList.toggle("open");
+}
+
+
+function addToCart(name, price){
+
+    price = Number(price);
+
+    const existingItem = cart.find(
+        item => item.name === name
+    );
+
+    if(existingItem){
+
+        existingItem.quantity++;
+
+    }else{
+
+        cart.push({
+            name:name,
+            price:price,
+            quantity:1
+        });
+
+    }
+
+    updateCart();
+
+    showToast("🛒 " + name + " added!");
+
+}
+
+
+function changeQuantity(index, amount){
+
+    cart[index].quantity += amount;
+
+    if(cart[index].quantity <= 0){
+        cart.splice(index, 1);
+    }
+
+    updateCart();
+}
+
+
+function removeItem(index){
+
+    cart.splice(index, 1);
+
+    updateCart();
+
+    showToast("Item removed");
+
+}
+
+
+/* ==============================
+   CART UPDATE
+================================= */
+
+function updateCart(){
+
+    const cartItems =
+        document.getElementById("cartItems");
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    const subtotalElement =
+        document.getElementById("subtotal");
+
+    const deliveryElement =
+        document.getElementById("deliveryCharge");
+
+    const discountElement =
+        document.getElementById("discountAmount");
+
+    const totalElement =
+        document.getElementById("cartTotal");
+
+    cartItems.innerHTML = "";
+
+    let subtotal = 0;
+    let totalQuantity = 0;
+
+
+    cart.forEach(function(item, index){
+
+        subtotal +=
+            item.price * item.quantity;
+
+        totalQuantity +=
+            item.quantity;
+
+        cartItems.innerHTML += `
+
+            <div class="cart-item">
+
+                <div class="cart-item-top">
+
+                    <div>
+                        <strong>${item.name}</strong>
+
+                        <br>
+
+                        Rs. ${item.price} × ${item.quantity}
+
+                    </div>
+
+                    <strong>
+                        Rs. ${item.price * item.quantity}
+                    </strong>
+
+                </div>
+
+                <div class="cart-quantity">
+
+                    <button onclick="changeQuantity(${index},-1)">
+                        −
+                    </button>
+
+                    <strong>${item.quantity}</strong>
+
+                    <button onclick="changeQuantity(${index},1)">
+                        +
+                    </button>
+
+                </div>
+
+                <button class="remove-btn"
+                    onclick="removeItem(${index})">
+                    Remove
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+
+    if(cart.length === 0){
+
+        cartItems.innerHTML =
+            "<p>Your cart is empty.</p>";
+
+    }
+
+
+    let selectedDelivery =
+        Number(
+            document.getElementById("deliveryArea").value
+        ) || 0;
+
+
+    if(subtotal >= 1000 && subtotal > 0){
+        selectedDelivery = 0;
+    }
+
+
+    let discountAmount = 0;
+
+    if(discount === 0.10){
+        discountAmount =
+            Math.round(subtotal * discount);
+    }
+
+    if(discount === 50){
+        discountAmount = 50;
+    }
+
+
+    const total =
+        Math.max(
+            0,
+            subtotal +
+            selectedDelivery -
+            discountAmount
+        );
+
+
+    cartCount.textContent = totalQuantity;
+
+    subtotalElement.textContent = subtotal;
+
+    deliveryElement.textContent =
+        subtotal >= 1000 && subtotal > 0
+        ? "FREE"
+        : selectedDelivery;
+
+    discountElement.textContent =
+        discountAmount;
+
+    totalElement.textContent = total;
+
+
+    window.orderSummary = {
+
+        subtotal:subtotal,
+
+        delivery:selectedDelivery,
+
+        discount:discountAmount,
+
+        total:total
+
+    };
+
+}
+
+
+/* ==============================
+   COUPON
+================================= */
+
+function applyCoupon(){
+
+    const code =
+        document
+            .getElementById("couponCode")
+            .value
+            .trim()
+            .toUpperCase();
+
+    const message =
+        document.getElementById("couponMessage");
+
+
+    if(code === "MOMFED10"){
+
+        discount = 0.10;
+
+        message.textContent =
+            "🎉 10% discount applied!";
+
+        message.style.color = "green";
+
+    }
+
+    else if(code === "SAVE50"){
+
+        discount = 50;
+
+        message.textContent =
+            "🎉 Rs. 50 discount applied!";
+
+        message.style.color = "green";
+
+    }
+
+    else{
+
+        discount = 0;
+
+        message.textContent =
+            "❌ Invalid coupon code.";
+
+        message.style.color = "red";
+
+    }
+
+    updateCart();
+
+}
+
+
+/* ==============================
+   CHECKOUT
+================================= */
+
+function openCheckout(){
+
+    if(cart.length === 0){
+
+        showToast("⚠️ Your cart is empty!");
+
+        return;
+
+    }
+
+    // Close the cart first so checkout opens directly on mobile and desktop.
+    const cartPanel = document.getElementById("cartPanel");
+    if (cartPanel) cartPanel.classList.remove("open");
+
+    document
+        .getElementById("checkoutModal")
+        .style.display = "block";
+
+}
+
+
+function closeCheckout(){
+
+    document
+        .getElementById("checkoutModal")
+        .style.display = "none";
+
+}
+
+
+/* ==============================
+   PAYMENT DETAILS
+================================= */
+
+function showPaymentDetails(){
+
+    const method =
+        document
+            .getElementById("paymentMethod")
+            .value;
+
+    const details =
+        document
+            .getElementById("paymentDetails");
+
+    const title =
+        document
+            .getElementById("paymentTitle");
+
+    const info =
+        document
+            .getElementById("paymentInfo");
+
+
+    if(method === "JazzCash"){
+
+        details.style.display = "block";
+
+        title.textContent =
+            "📱 Send payment to JazzCash Number";
+
+        info.textContent =
+            "JazzCash: 0327 0450914";
+
+    }
+
+    else if(method === "Easypaisa"){
+
+        details.style.display = "block";
+
+        title.textContent =
+            "📱 Send payment to Easypaisa Number";
+
+        info.textContent =
+            "Easypaisa: 0327 0450914";
+
+    }
+
+    else if(method === "UBL Bank Transfer"){
+
+        details.style.display = "block";
+
+        title.textContent =
+            "🏦 Send payment to UBL Bank Account";
+
+        info.textContent =
+            "Account Number: 0885311430769";
+
+    }
+
+    else{
+
+        details.style.display = "none";
+
+        title.textContent = "";
+
+        info.textContent = "";
+
+    }
+
+}
+
+
+/* ==============================
+   COPY PAYMENT INFO
+================================= */
+
+function copyPaymentInfo(){
+
+    const text =
+        document
+            .getElementById("paymentInfo")
+            .textContent;
+
+    navigator.clipboard
+        .writeText(text)
+        .then(function(){
+
+            showToast("📋 Payment details copied!");
+
+        })
+        .catch(function(){
+
+            showToast("Please copy manually.");
+
+        });
+
+}
+
+
+/* ==============================
+   CONFIRM ORDER
+================================= */
+
+function confirmOrder(){
+
+    const name =
+        document
+            .getElementById("customerName")
+            .value
+            .trim();
+
+    const phone =
+        document
+            .getElementById("customerPhone")
+            .value
+            .trim();
+
+    const address =
+        document
+            .getElementById("customerAddress")
+            .value
+            .trim();
+
+    const date =
+        document
+            .getElementById("deliveryDate")
+            .value;
+
+    const time = "";
+
+    const notes =
+        document
+            .getElementById("customerNotes")
+            .value
+            .trim();
+
+    const payment =
+        document
+            .getElementById("paymentMethod")
+            .value;
+
+
+    // Delivery time is removed. Use safe defaults for date and payment.
+    const finalDate = date || new Date().toISOString().split("T")[0];
+    const finalPayment = payment || "Cash on Delivery";
+
+    if(!name || !phone || !address){
+        showToast("⚠️ Please enter your Name, Phone Number and Delivery Address.");
+        return;
+    }
+
+
+    const orderNumber =
+        "MF-" +
+        Date.now()
+        .toString()
+        .slice(-8);
+
+
+    window.currentOrderNumber =
+        orderNumber;
+
+
+    createReceipt(
+        orderNumber,
+        name,
+        phone,
+        address,
+        finalDate,
+        time,
+        notes,
+        payment
+    );
+
+
+    let orderItemsText = "";
+
+    cart.forEach(function(item){
+
+        orderItemsText +=
+            "• " +
+            item.name +
+            " × " +
+            item.quantity +
+            " = Rs. " +
+            (item.price * item.quantity) +
+            "%0A";
+
+    });
+
+
+    const summary =
+        window.orderSummary || {
+            subtotal:0,
+            delivery:0,
+            discount:0,
+            total:0
+        };
+
+
+    const savedLoc = window.momfedCustomerLocation || null;
+
+    const whatsappMessage =
+
+        "🍛 *MOMFED NEW ORDER*%0A%0A" +
+
+        "🧾 Order: *" +
+        orderNumber +
+        "*%0A%0A" +
+
+        "👤 Customer: " +
+        name +
+        "%0A" +
+
+        "📞 Phone: " +
+        phone +
+        "%0A" +
+
+        "📍 Address: " +
+        address +
+        "%0A" +
+
+        "📅 Date: " +
+        date +
+        "%0A" +
+
+        "🕒 Time: " +
+        time +
+        "%0A" +
+
+        "💳 Payment: " +
+        payment +
+        "%0A%0A" +
+
+        "🛒 *ORDER ITEMS*%0A" +
+
+        orderItemsText +
+
+        "%0A💰 Subtotal: Rs. " +
+        summary.subtotal +
+
+        "%0A🚚 Delivery: Rs. " +
+        summary.delivery +
+
+        "%0A🎟️ Discount: Rs. " +
+        summary.discount +
+
+        "%0A%0A💵 *TOTAL: Rs. " +
+        summary.total +
+        "*" +
+        (savedLoc && savedLoc.mapsUrl ? "%0A%0A📍 Location: " + savedLoc.mapsUrl : "") +
+
+        (notes
+            ? "%0A%0A📝 Notes: " + notes
+            : ""
+        );
+
+
+    const firebaseOrder = {
+        id: orderNumber,
+        customerName: name,
+        phone: phone,
+        address: address,
+        deliveryDate: finalDate,
+        deliveryTime: time,
+        notes: notes,
+        payment: finalPayment,
+        items: cart.map(item => ({
+            name: item.name,
+            price: Number(item.price || 0),
+            quantity: Number(item.quantity || 0)
+        })),
+        subtotal: Number(summary.subtotal || 0),
+        delivery: Number(summary.delivery || 0),
+        discount: Number(summary.discount || 0),
+        total: Number(summary.total || 0),
+        location: savedLoc ? { ...savedLoc } : null,
+        customerLocation: savedLoc ? { ...savedLoc } : null,
+        riderId: "",
+        riderName: "",
+        riderStatus: "unassigned",
+        riderLiveLocation: null,
+        status: "New",
+        createdAt: new Date().toISOString()
+    };
+
+    db.collection("orders").doc(orderNumber).set(firebaseOrder)
+        .catch(error => console.error("Firebase order save failed:", error));
+
+    const history = JSON.parse(localStorage.getItem("momfed_order_history") || "[]");
+    history.unshift(orderNumber);
+    localStorage.setItem("momfed_order_history", JSON.stringify([...new Set(history)].slice(0,20)));
+    const customerHistory = JSON.parse(localStorage.getItem("momfed_customer_orders") || "[]");
+    customerHistory.unshift(firebaseOrder);
+    localStorage.setItem("momfed_customer_orders", JSON.stringify(customerHistory.slice(0,20)));
+
+    closeCheckout();
+
+    document
+        .getElementById("receiptModal")
+        .style.display = "block";
+
+
+    setTimeout(function(){
+
+        window.open(
+            "https://wa.me/923270450914?text=" +
+            whatsappMessage,
+            "_blank"
+        );
+
+    }, 700);
+
+}
+
+
+/* ==============================
+   CREATE RECEIPT
+================================= */
+
+function createReceipt(
+    orderNumber,
+    name,
+    phone,
+    address,
+    date,
+    time,
+    notes,
+    payment
+){
+
+    document
+        .getElementById("receiptOrderNumber")
+        .textContent = orderNumber;
+
+    document
+        .getElementById("receiptCustomerName")
+        .textContent = name;
+
+    document
+        .getElementById("receiptCustomerPhone")
+        .textContent = phone;
+
+    document
+        .getElementById("receiptCustomerAddress")
+        .textContent = address;
+
+    document
+        .getElementById("receiptDeliveryDate")
+        .textContent = date;
+
+    document
+        .getElementById("receiptDeliveryTime")
+        .textContent = time;
+
+    document
+        .getElementById("receiptPayment")
+        .textContent = payment;
+
+
+    const notesBox =
+        document
+            .getElementById("receiptNotesBox");
+
+    if(notes){
+
+        notesBox.style.display = "block";
+
+        document
+            .getElementById("receiptNotes")
+            .textContent = notes;
+
+    }else{
+
+        notesBox.style.display = "none";
+
+    }
+
+
+    const receiptItems =
+        document
+            .getElementById("receiptItems");
+
+    receiptItems.innerHTML = "";
+
+
+    cart.forEach(function(item){
+
+        receiptItems.innerHTML += `
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                gap:15px;
+                padding:8px 0;
+                border-bottom:1px dashed #ddd;
+            ">
+
+                <span>
+                    ${item.name}
+                    × ${item.quantity}
+                </span>
+
+                <strong>
+                    Rs. ${item.price * item.quantity}
+                </strong>
+
+            </div>
+
+        `;
+
+    });
+
+
+    const summary =
+        window.orderSummary;
+
+
+    document
+        .getElementById("receiptSubtotal")
+        .textContent =
+        summary.subtotal;
+
+    document
+        .getElementById("receiptDelivery")
+        .textContent =
+        summary.delivery === 0
+        ? "FREE"
+        : summary.delivery;
+
+    document
+        .getElementById("receiptDiscount")
+        .textContent =
+        summary.discount;
+
+    document
+        .getElementById("receiptTotal")
+        .textContent =
+        summary.total;
+
+}
+
+
+/* ==============================
+   RECEIPT
+================================= */
+
+function closeReceipt(){
+
+    document
+        .getElementById("receiptModal")
+        .style.display = "none";
+
+}
+
+
+function printReceipt(){
+
+    const receipt =
+        document
+            .getElementById("receiptContent")
+            .innerHTML;
+
+    const printWindow =
+        window.open(
+            "",
+            "_blank"
+        );
+
+
+    printWindow.document.write(`
+
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+            <title>
+                MomFed Order Receipt
+            </title>
+
+            <style>
+
+                body{
+                    font-family:Arial,sans-serif;
+                    padding:30px;
+                    color:#222;
+                }
+
+                button{
+                    display:none;
+                }
+
+                hr{
+                    border:none;
+                    border-top:1px solid #ddd;
+                    margin:15px 0;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            ${receipt}
+
+        </body>
+
+        </html>
+
+    `);
+
+
+    printWindow.document.close();
+
+
+    printWindow.onload =
+        function(){
+
+            printWindow.print();
+
+        };
+
+}
+
+
+/* ==============================
+   SEARCH
+================================= */
+
+function filterProducts(){
+
+    const search =
+        document
+            .getElementById("searchInput")
+            .value
+            .toLowerCase();
+
+    const products =
+        document
+            .querySelectorAll(
+                "#menu .food-card"
+            );
+
+
+    products.forEach(function(product){
+
+        const text =
+            product
+                .innerText
+                .toLowerCase();
+
+        const category =
+            product
+                .getAttribute(
+                    "data-category"
+                );
+
+
+        const matchesSearch =
+            text.includes(search);
+
+        const matchesCategory =
+            currentCategory === "all" ||
+            category === currentCategory;
+
+
+        product.style.display =
+            matchesSearch &&
+            matchesCategory
+            ? "block"
+            : "none";
+
+    });
+
+}
+
+
+/* ==============================
+   CATEGORY FILTER
+================================= */
+
+function setCategory(category, button){
+
+    currentCategory = category;
+
+    document
+        .querySelectorAll(".category-btn")
+        .forEach(function(btn){
+
+            btn.classList.remove("active");
+
+        });
+
+    button.classList.add("active");
+
+    filterProducts();
+
+}
+
+
+/* ==============================
+   TOAST
+================================= */
+
+function showToast(message){
+
+    const toast =
+        document
+            .getElementById("toast");
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    }, 2500);
+
+}
+
+
+/* ==============================
+   SCROLL TOP
+================================= */
+
+window.addEventListener(
+    "scroll",
+    function(){
+
+        const button =
+            document
+                .getElementById("scrollTop");
+
+        if(
+            window.scrollY > 400
+        ){
+
+            button.style.display =
+                "block";
+
+        }else{
+
+            button.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+/* ==============================
+   OFFER POPUP
+================================= */
+
+function closeOffer(){
+
+    document
+        .getElementById("offerPopup")
+        .style.display = "none";
+
+}
+
+
+setTimeout(function(){
+
+    document
+        .getElementById("offerPopup")
+        .style.display = "block";
+
+}, 2500);
+
+
+/* ==============================
+   CURRENT YEAR
+================================= */
+
+document
+    .getElementById("currentYear")
+    .textContent =
+    new Date().getFullYear();
+
+
+/* ==============================
+   SET MINIMUM DELIVERY DATE
+================================= */
+
+const momfedToday = new Date().toISOString().split("T")[0];
+const momfedDateInput = document.getElementById("deliveryDate");
+if(momfedDateInput){
+    momfedDateInput.min = momfedToday;
+    if(!momfedDateInput.value) momfedDateInput.value = momfedToday;
+}
+
+
+/* INITIAL CART */
+
+updateCart();
+
+
+/* ==============================
+   MOMFED LOCATION + TRACKING
+================================= */
+let momfedCustomerLocation=window.momfedCustomerLocation||null;
+let momfedLocationWatch=null;
+function updateLocationStatus(text,ok){const el=document.getElementById("locationStatus");if(el){el.textContent=text;el.style.color=ok?"#198754":"#666";}const p=document.getElementById("pickedLocationText");if(p)p.textContent=text;}
+function getSavedMomfedLocation(){try{return JSON.parse(localStorage.getItem("momfed_customer_location")||"null")}catch(e){return null}}
+function saveMomfedLocation(lat,lng,accuracy,address){const loc={latitude:Number(lat),longitude:Number(lng),accuracy:Number(accuracy||0),address:String(address||""),mapsUrl:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(Number(lat)+","+Number(lng))};momfedCustomerLocation=loc;window.momfedCustomerLocation=loc;localStorage.setItem("momfed_customer_location",JSON.stringify(loc));return loc;}
+function syncAddressField(address){if(!address)return;const box=document.getElementById("customerAddress");const manual=document.getElementById("manualDeliveryAddress");if(box)box.value=address;if(manual)manual.value=address;}
+async function reverseGeocodeMomfed(lat,lng){try{const r=await fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat="+encodeURIComponent(lat)+"&lon="+encodeURIComponent(lng)+"&zoom=18&addressdetails=1",{headers:{Accept:"application/json"}});if(!r.ok)return "";const d=await r.json();return d.display_name||""}catch(e){return ""}}
+function openSelectedInGoogleMaps(){const loc=momfedCustomerLocation||getSavedMomfedLocation();if(loc&&Number.isFinite(Number(loc.latitude))&&Number.isFinite(Number(loc.longitude)))window.open("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(Number(loc.latitude)+","+Number(loc.longitude)),"_blank");else updateLocationStatus("⚠️ Please share your location first.",false);}
+async function sendLocationOnWhatsApp(){
+    const name=(document.getElementById("customerName")||{}).value||"";
+    const phone=(document.getElementById("customerPhone")||{}).value||"";
+    const address=(document.getElementById("customerAddress")||{}).value||"";
+    const msg="🍛 MomFed Delivery Location%0A%0A"+
+        "👤 Name: "+encodeURIComponent(name.trim())+"%0A"+
+        "📞 Phone: "+encodeURIComponent(phone.trim())+"%0A"+
+        "📍 Address: "+encodeURIComponent(address.trim())+"%0A%0A"+
+        "Please send your current location here:%0A"+
+        "WhatsApp → 📎/＋ → Location → Send your current location.";
+    window.open("https://wa.me/923270450914?text="+msg,"_blank");
+    updateLocationStatus("✅ WhatsApp opened. Please tap +/📎 → Location → Send your current location.",true);
+}
+
+function shareYourLocation(){
+    if(!window.isSecureContext && location.hostname !== "localhost"){updateLocationStatus("⚠️ Location sirf HTTPS website par chalegi. Address manually bhi de sakte hain.",false);return;}
+    if(!navigator.geolocation){updateLocationStatus("⚠️ GPS is not supported on this device.",false);return;}
+    const btn=document.getElementById("setLocationBtn");
+    if(btn){btn.disabled=true;btn.textContent="📍 Getting Your Location…";btn.style.opacity=".7";}
+    updateLocationStatus("📍 Getting your exact location…",false);
+    navigator.geolocation.getCurrentPosition(async pos=>{
+        const lat=pos.coords.latitude,lng=pos.coords.longitude,accuracy=pos.coords.accuracy||0;
+        let address=await reverseGeocodeMomfed(lat,lng);
+        if(!address) address="GPS Location: "+lat.toFixed(6)+", "+lng.toFixed(6);
+        saveMomfedLocation(lat,lng,accuracy,address);
+        syncAddressField(address);
+        updateLocationStatus("✅ Location saved in your delivery address.",true);
+        if(btn){btn.disabled=false;btn.textContent="✅ Location Saved — Share Again";btn.style.opacity="1";}
+    },err=>{
+        let msg="⚠️ Could not get your location. Please allow location permission and try again.";
+        if(err&&err.code===1)msg="";
+        else if(err&&err.code===2)msg="⚠️ Your location is unavailable. Turn on GPS/location services and try again.";
+        else if(err&&err.code===3)msg="⚠️ Location request timed out. Please try again outside or near a window.";
+        updateLocationStatus(msg,false);
+        if(btn){btn.disabled=false;btn.textContent="📍 Share Your Location";btn.style.opacity="1";}
+    },{enableHighAccuracy:true,timeout:20000,maximumAge:0});
+}
+function skipStartupLocation(){const m=document.getElementById("startupLocationModal");if(m)m.style.display="none";}
+
+async function openOrderHistory(){
+    const m=document.getElementById("orderHistoryModal");
+    if(!m)return;
+    m.style.display="flex";
+    const list=document.getElementById("orderHistoryList");
+    const orders=JSON.parse(localStorage.getItem("momfed_customer_orders")||"[]");
+    if(!orders.length){
+        list.innerHTML="<p style='color:#666;text-align:center'>No orders saved on this device yet.</p>";
+        return;
+    }
+    list.innerHTML=orders.map(o=>{
+        const items=Array.isArray(o.items)?o.items:[];
+        const itemsHtml=items.length?items.map(item=>`<div style="display:flex;justify-content:space-between;padding:4px 0;"><span>${escapeFirebaseHtml(item.name||"Item")}</span><span>×${Number(item.quantity||1)}</span></div>`).join(""):"<div style='color:#777'>No item details</div>";
+        return `<div style="padding:15px;border:1px solid #eee;border-radius:14px;margin-bottom:12px;background:#fff;">
+          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;"><strong style="color:#e66f19;font-size:17px;">🧾 ${escapeFirebaseHtml(o.id||"")}</strong><span style="padding:5px 9px;border-radius:999px;background:#f4f4f4;font-size:12px;">${escapeFirebaseHtml(o.status||"New")}</span></div>
+          <div style="margin-top:9px;line-height:1.6;"><div><strong>👤 Customer:</strong> ${escapeFirebaseHtml(o.customerName||"")}</div><div><strong>📅 Date:</strong> ${escapeFirebaseHtml(o.deliveryDate||"")}</div><div style="margin-top:8px;"><strong>🛒 Ordered Items:</strong>${itemsHtml}</div><div style="margin-top:8px;font-weight:800;">💰 Total: Rs. ${Number(o.total||0)}</div></div>
+        </div>`;
+    }).join("");
+}
+function closeOrderHistory(){const m=document.getElementById("orderHistoryModal");if(m)m.style.display="none";}
+async function renderRiderMode(orderId){
+    const root=document.getElementById("riderDeliveryMode");if(!root)return;
+    let snap=await db.collection("orders").doc(orderId).get(); if(!snap.exists){root.innerHTML="<h2>Order not found</h2>";root.style.display="block";return;}
+    const o=snap.data();root.innerHTML=`<div style="max-width:600px;margin:auto;text-align:center;"><h1 style="color:#e66f19;">🍛 MomFed Rider</h1><h2>Order ${orderId}</h2><p><strong>${o.customerName||"Customer"}</strong><br>${o.address||""}<br>${o.phone||""}</p><a href="${o.location?.mapsUrl||o.customerLocation?.mapsUrl||"https://www.google.com/maps"}" target="_blank" style="display:block;padding:13px;background:#0d6efd;color:#fff;border-radius:10px;text-decoration:none;margin:10px 0;">📍 Open Customer Location</a><button id="riderStartBtn" onclick="startRiderTracking('${orderId}')" style="width:100%;padding:14px;background:#198754;color:#fff;border:0;border-radius:10px;font-weight:700;">▶️ Start Delivery & Live Location</button><button onclick="stopRiderTracking('${orderId}')" style="width:100%;padding:12px;margin-top:8px;background:#dc3545;color:#fff;border:0;border-radius:10px;">⏹️ Stop / Delivered</button><p id="riderLiveText" style="color:#666;margin-top:12px;"></p></div>`;root.style.display="block";
+}
+function startRiderTracking(orderId){
+    if(!navigator.geolocation){alert("This phone does not support location.");return;}
+    db.collection("orders").doc(orderId).set({riderStatus:"on_delivery",status:"Out for Delivery",riderTrackingStartedAt:new Date().toISOString()},{merge:true});
+    momfedLocationWatch=navigator.geolocation.watchPosition(pos=>{db.collection("orders").doc(orderId).set({riderLiveLocation:{latitude:pos.coords.latitude,longitude:pos.coords.longitude,accuracy:pos.coords.accuracy,updatedAt:new Date().toISOString()}},{merge:true});const t=document.getElementById("riderLiveText");if(t)t.textContent="🟢 Location sharing active • Last update: "+new Date().toLocaleTimeString();},err=>{const t=document.getElementById("riderLiveText");if(t)t.textContent="⚠️ Please allow location permission on this phone.";},{enableHighAccuracy:true,maximumAge:5000,timeout:15000});
+}
+function stopRiderTracking(orderId){if(momfedLocationWatch!==null){navigator.geolocation.clearWatch(momfedLocationWatch);momfedLocationWatch=null;}db.collection("orders").doc(orderId).set({riderStatus:"delivered",status:"Delivered",riderLiveLocation:null,deliveredAt:new Date().toISOString()},{merge:true});const t=document.getElementById("riderLiveText");if(t)t.textContent="✅ Delivery completed.";}
+(function initMomfedLocation(){
+    const saved=localStorage.getItem("momfed_customer_location");if(saved){try{momfedCustomerLocation=JSON.parse(saved);window.momfedCustomerLocation=momfedCustomerLocation;}catch(e){}}
+    const params=new URLSearchParams(location.search);const riderOrder=params.get("rider");if(riderOrder){renderRiderMode(riderOrder);return;}
+    
+})();
+
+</script>
+
+</body>
+</html>
